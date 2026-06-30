@@ -1,0 +1,15 @@
+{
+  "permissions": {
+    "allow": [
+      "Read", "Edit", "Write", "Grep", "Glob",
+      "Bash(uv:*)", "Bash(uv run:*)", "Bash(pytest:*)", "Bash(ruff:*)",
+      "Bash(mypy:*)", "Bash(alembic:*)", "Bash(pnpm:*)", "Bash(npx shadcn:*)",
+      "Bash(git:*)", "WebFetch", "WebSearch",
+      "mcp__context7__*", "mcp__shadcn__*"
+    ],
+    "deny": [
+      "Bash(git push:*)",
+      "Bash(rm -rf:*)"
+    ]
+  }
+}

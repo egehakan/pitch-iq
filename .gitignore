@@ -1,0 +1,29 @@
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+backend/.venv/
+*.egg-info/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# Env / secrets
+.env
+.env.local
+*.env
+!*.env.example
+keys.txt
+
+# Node / Next
+node_modules/
+.next/
+out/
+.turbo/
+frontend/.next/
+frontend/node_modules/
+
+# Misc
+.DS_Store
+*.log
+scratchpad/

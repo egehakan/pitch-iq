@@ -1,0 +1,20 @@
+services:
+  postgres:
+    image: postgres:16
+    container_name: pitchiq-postgres
+    environment:
+      POSTGRES_USER: pitchiq
+      POSTGRES_PASSWORD: pitchiq
+      POSTGRES_DB: pitchiq
+    ports:
+      - "5433:5432"
+    volumes:
+      - pitchiq_pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U pitchiq -d pitchiq"]
+      interval: 3s
+      timeout: 3s
+      retries: 20
+
+volumes:
+  pitchiq_pgdata:

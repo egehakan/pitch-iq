@@ -1,0 +1,171 @@
+@import "tailwindcss";
+
+/* Pitch IQ — matchnight broadcast monitor. Cool ink, one floodlight accent, live red. */
+:root {
+  --ink: oklch(0.165 0.012 264);
+  --surface: oklch(0.205 0.014 264);
+  --surface-2: oklch(0.245 0.016 264);
+  --line: oklch(0.305 0.014 264);
+  --line-strong: oklch(0.38 0.016 264);
+  --text: oklch(0.95 0.006 264);
+  --muted: oklch(0.66 0.012 264);
+  --faint: oklch(0.5 0.012 264);
+  --accent: oklch(0.8 0.155 68);
+  --accent-press: oklch(0.72 0.15 66);
+  --on-accent: oklch(0.18 0.02 70);
+  --live: oklch(0.64 0.225 25);
+  --good: oklch(0.74 0.13 150);
+  --radius: 0.5rem;
+}
+
+@theme inline {
+  --color-ink: var(--ink);
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
+  --color-line: var(--line);
+  --color-line-strong: var(--line-strong);
+  --color-text: var(--text);
+  --color-muted: var(--muted);
+  --color-faint: var(--faint);
+  --color-accent: var(--accent);
+  --color-accent-press: var(--accent-press);
+  --color-on-accent: var(--on-accent);
+  --color-live: var(--live);
+  --color-good: var(--good);
+  --font-display: var(--font-display), ui-sans-serif, system-ui, sans-serif;
+  --font-sans: var(--font-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-mono), ui-monospace, monospace;
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+* {
+  border-color: var(--line);
+}
+
+html {
+  background: var(--ink);
+  color-scheme: dark;
+}
+
+body {
+  background: var(--ink);
+  color: var(--text);
+  font-family: var(--font-sans);
+  font-feature-settings: "cv05", "ss01";
+  -webkit-font-smoothing: antialiased;
+}
+
+::selection {
+  background: color-mix(in oklch, var(--accent) 30%, transparent);
+  color: var(--text);
+}
+
+/* tabular numerals for all data */
+.tnum {
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: "tnum";
+}
+
+.font-display {
+  font-family: var(--font-display);
+  letter-spacing: -0.01em;
+}
+.font-mono {
+  font-family: var(--font-mono);
+}
+
+/* eyebrow / kicker label */
+.eyebrow {
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+/* thin scrollbars that match the ink */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--line-strong) transparent;
+}
+*::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+*::-webkit-scrollbar-thumb {
+  background: var(--line-strong);
+  border-radius: 4px;
+}
+*::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+/* streaming caret */
+@keyframes pitch-caret {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+.caret::after {
+  content: "";
+  display: inline-block;
+  width: 0.5ch;
+  height: 1em;
+  margin-left: 1px;
+  vertical-align: -0.12em;
+  background: var(--accent);
+  animation: pitch-caret 1s steps(1) infinite;
+}
+
+/* live pulse */
+@keyframes pitch-pulse {
+  0% { box-shadow: 0 0 0 0 color-mix(in oklch, var(--live) 55%, transparent); }
+  70% { box-shadow: 0 0 0 5px color-mix(in oklch, var(--live) 0%, transparent); }
+  100% { box-shadow: 0 0 0 0 color-mix(in oklch, var(--live) 0%, transparent); }
+}
+.live-dot {
+  animation: pitch-pulse 1.8s var(--ease-out-expo) infinite;
+}
+
+/* chat markdown */
+.prose-chat {
+  font-size: 0.9375rem;
+  line-height: 1.6;
+}
+.prose-chat p { margin: 0.4rem 0; }
+.prose-chat p:first-child { margin-top: 0; }
+.prose-chat p:last-child { margin-bottom: 0; }
+.prose-chat strong { color: var(--text); font-weight: 650; }
+.prose-chat ul { margin: 0.4rem 0; padding-left: 1.15rem; list-style: disc; }
+.prose-chat ol { margin: 0.4rem 0; padding-left: 1.25rem; list-style: decimal; }
+.prose-chat li { margin: 0.15rem 0; }
+.prose-chat h1, .prose-chat h2, .prose-chat h3 {
+  font-family: var(--font-display);
+  font-weight: 700;
+  margin: 0.7rem 0 0.3rem;
+  letter-spacing: -0.01em;
+}
+.prose-chat h1 { font-size: 1.15rem; }
+.prose-chat h2 { font-size: 1.02rem; }
+.prose-chat code {
+  font-family: var(--font-mono);
+  font-size: 0.85em;
+  background: var(--surface-2);
+  padding: 0.05rem 0.3rem;
+  border-radius: 4px;
+}
+
+@keyframes pitch-rise {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.rise {
+  animation: pitch-rise 0.32s var(--ease-out-expo) both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}
